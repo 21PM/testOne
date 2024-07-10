@@ -1,15 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
+import Navbar from './components/Navbar'
 import './App.css'
+import Buttons from './components/Buttons'
+import Router from './routing/Router'
+import { createContext } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+export const DataContext = createContext();
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+
+
+  const [data, setData] = useState([])
+  const [showForm,SetShowform] = useState(false)
+  const [localdata,Setlocaldata] = useState()
+
+  useEffect(()=>{
+      StoreDataLocally()
+      const storedata = localStorage.getItem("userdata")
+      if(storedata){
+        const dataset = JSON.parse(storedata)
+        setData(dataset)
+      }
+     
+  },[showForm])
+
+  const StoreDataLocally = ()=>{
+    console.log("ads",data);
+    if(data.length > 0){
+      localStorage.setItem("userdata",JSON.stringify(data))
+      toast.success("Data Saved Successfully")
+
+    }
+  }
 
   return (
-    <h1 className="text-6xl font-bold underline">
-    Hello world!
-  </h1>
+    <>
+       <Navbar />
+       <DataContext.Provider value={{data,setData,showForm,SetShowform}}>
+       {/* <RetrieveInfo/> */}
+       <Router/>
+       </DataContext.Provider>
+      
+    </>
   )
 }
 
