@@ -24,10 +24,22 @@ const PersonTable = () => {
       Setlocaldata(JSON.parse(storedData))
     }
 },[data])
+
+
+  function DeleteData(id){
+    const newdata = localStorage.getItem("userdata")
+    const newJsonData = JSON.parse(newdata);
+    
+    const ans = newJsonData.filter((ele)=>{
+      return ele.aadhar !== id
+    })
+    setData(ans)
+    localStorage.setItem("userdata",JSON.stringify(ans))
+  }
   
   return (
     
-    <div className="container mx-auto p-4 border-2">
+    <div className="container mx-auto p-6 border-2">
       <ToastContainer
 position="top-center"
 autoClose={2000}
@@ -67,7 +79,7 @@ theme="light"
             <td className="border-t px-4 py-2">{ele.aadhar}</td>
             <td className="border-t px-4 py-2">{ele.mobile}</td>
             <td className="border-t px-4 py-2">{ele.age}</td>
-            <td className="border-t px-4 py-2 cursor-pointer text-rose-600">Delete</td>
+            <td className="border-t px-4 py-2 cursor-pointer text-rose-600" onClick={()=>DeleteData(ele.aadhar)}>Delete</td>
           </tr>
                 </>
               )

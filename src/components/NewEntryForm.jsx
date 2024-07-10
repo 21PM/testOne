@@ -14,7 +14,6 @@ const NewEntryForm = () => {
   const [localData,SetLocalData] = useState([])
 
 
-
   useEffect(()=>{
      let storedData = localStorage.getItem("userdata")
     if(storedData){
@@ -55,6 +54,7 @@ const NewEntryForm = () => {
   };
 
   function SaveDatafunc(){
+  
     if(name.length === 0){
       alert("Kindly enter your name")
       return;
@@ -65,7 +65,7 @@ const NewEntryForm = () => {
       return
     }
 
-    if(aadhar >= 100000000000){
+    if(aadhar >= 100000000000 && aadhar.length === 12){
       console.log(aadhar.length);
     }else{
       alert("Kindly enter valid aadhar number of 12 Digits")
@@ -91,6 +91,7 @@ const NewEntryForm = () => {
       obj
     ]
     setData(oldData)
+    console.log("data saved");
     SetShowform(!showForm) 
   }
 

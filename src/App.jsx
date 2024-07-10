@@ -12,18 +12,17 @@ export const DataContext = createContext();
 
 function App() {
 
-
-
   const [data, setData] = useState([])
   const [showForm,SetShowform] = useState(false)
   const [localdata,Setlocaldata] = useState()
 
   useEffect(()=>{
-      StoreDataLocally()
+    StoreDataLocally()
       const storedata = localStorage.getItem("userdata")
       if(storedata){
         const dataset = JSON.parse(storedata)
         setData(dataset)
+        
       }
      
   },[showForm])
@@ -32,8 +31,6 @@ function App() {
     console.log("ads",data);
     if(data.length > 0){
       localStorage.setItem("userdata",JSON.stringify(data))
-      toast.success("Data Saved Successfully")
-
     }
   }
 
